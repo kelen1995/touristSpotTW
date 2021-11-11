@@ -5,6 +5,10 @@
     src: url('fonts/PingFangTC.woff');
 }
 
+body {
+    font-family: 'PingFangTC', sans-serif;
+}
+
 .box {
     margin-left: 120px;
     margin-right: 100px;
@@ -37,4 +41,59 @@
 
     padding-top:80px;
     text-align: right;
+}
+
+.content {
+    margin-top: 40px;
+}
+
+.areaSelect {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    height: 50px;
+    width: 158px;
+    font-size: 15px;
+    font-weight: 400;
+
+    padding: 12px;
+
+    background-position: right 1.2em top 50%;
+    background-image: url(icons/arrow.png);
+    background-repeat: no-repeat;
+
+    border: solid 1px #D9D9D9;
+}
+
+.areaSelect option {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+}
+
+.areaInput {
+    height: 50px;
+    width: 760px;
+    font-size: 15px;
+    font-weight: 400;
+
+    background-position: left 1.2em top 50%;
+    background-image: url(icons/search.png);
+    background-repeat: no-repeat;
+
+    padding-left: 45px;
+
+    border: solid 1px #D9D9D9;
+}
+
+.areaSearchBtn {
+    height: 50px;
+    width: 94px;
+    font-size: 15px;
+    font-weight: 400;
+
+    background-color: #1A1A1A;
+    color: white;
 }
