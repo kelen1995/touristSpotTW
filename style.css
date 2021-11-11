@@ -97,3 +97,25 @@ body {
     background-color: #1A1A1A;
     color: white;
 }
+
+.areaType {
+    margin-top: 40px;
+}
+
+.areaType .option {
+    display: inline-block;
+    color: #D9D9D9;
+
+    padding-bottom: 4px;
+    margin-right: 32px;
+}
+
+.areaType .option:hover {
+    color: #A6A6A6;
+    cursor: context-menu;
+}
+
+.areaType .option.selected {
+    color: #1A1A1A;
+    border-bottom: solid 1px black;
+}
