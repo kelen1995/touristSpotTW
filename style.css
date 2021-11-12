@@ -166,6 +166,70 @@ body {
     text-align: right;
 }
 
+.pagination > div {
+    border: solid 1px #D9D9D9   ;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.pagination > div:hover {
+    border: solid 1px #A6A6A6;
+}
+
+.pagination > .lastPage::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width:30%;
+    vertical-align: middle;
+}
+
+.pagination .lastPage div {
+    border-right: 6px solid black;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    display:inline-block;
+    vertical-align: middle;
+}
+
+.pagination > .nextPage::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width:30%;
+    vertical-align: middle;
+}
+
+.pagination .nextPage div {
+    border-left: 6px solid black;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    display:inline-block;
+    vertical-align: middle;
+}
+
+.pagination .page {
+    text-align: center;
+}
+
+.pagination .page::before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.pagination .page.current {
+    background-color: black;
+    color: white;
+}
+
 .footer {
-    height: 240px;
+    /* height: 240px; */
+    text-align: right;
+
+    margin-top: 160px;
+    margin-bottom: 60px;
 }
