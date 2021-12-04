@@ -20,8 +20,8 @@ function init() {
 function getScenicSpotData(page) {
     axios({
         method: 'get',
-        url: `${apiUrl}?$top=125&$format=JSON`,
-        // headers: getAuthorizationHeader()
+        url: `${apiUrl}?$top=35&$format=JSON`,
+        headers: getAuthorizationHeader()
     })
     .then(res => {
         console.log(res.data);
