@@ -17,7 +17,6 @@ let spotsData = [];
 function init() {
     // 透過 API 取得旅遊景點資料
     getScenicSpotData();
-    bindEvents();
 }
 
 function getScenicSpotData(city='', filter='', page=1) {
@@ -43,6 +42,8 @@ function getScenicSpotData(city='', filter='', page=1) {
         spotsData = res.data;
         renderPagination(spotsData, page);
         renderAreaList(spotsData, page);
+        bindSearchEvent();
+        bindPageEvent();
     })
     .catch(err => {
         console.log(err);
@@ -79,11 +80,6 @@ function renderPagination(data, page) {
     document.querySelector(`[data-page="${page}"]`).classList.toggle('current');
 }
 
-function bindEvents() {
-    bindSearchEvent();
-    bindPageEvent();
-}
-
 function bindSearchEvent() {
     // 按下搜尋按鈕
     searchBtn.addEventListener('click', e => {
@@ -94,6 +90,33 @@ function bindSearchEvent() {
     areaInput.addEventListener('keyup', e => {
         console.log(e);
         if (e.key === 'Enter') getScenicSpotData(areaSelect.value, areaInput.value);
+    });
+}
+
+function bindHoverAreaListEvent() {
+    let areaNodes = areaList.querySelectorAll('li');
+    console.log(areaNodes)
+    areaNodes.forEach(area => {
+        area.addEventListener('mouseenter', e => {
+            let dom = e.target;
+            let pic = dom.querySelector('.areaPic');
+            pic.style.display = 'inline-block';
+        });
+        
+        area.addEventListener('mousemove', e => {
+            let dom = e.target;
+            let pic = dom.querySelector('.areaPic');
+            if (pic) {
+                pic.style.top = `${e.clientY - pic.clientHeight - 5}px`;
+                pic.style.left = `${(e.clientX + 5)}px`;
+            }
+        });
+        
+        area.addEventListener('mouseleave', e => {
+            let dom = e.target;
+            let pic = dom.querySelector('.areaPic');
+            pic.style.display = 'none';
+        });
     });
 }
 
@@ -155,11 +178,13 @@ function renderAreaList(areaData, page) {
         // 擷取資料中的圖片網址
         let picUrl = '';
         if (area.Picture.PictureUrl1) picUrl = area.Picture.PictureUrl1;
+        else picUrl = 'no_pic.png';
 
         if ( index <= (page * SPOTS_PER_PAGE) -1 &&
              index > (page-1) * SPOTS_PER_PAGE -1)  {
                 result += /*HTML */`
-                <li data-pic="${picUrl}">
+                <li>
+                    <img class="areaPic" src="${picUrl}">
                     <div class="no">${zeroPadding(index+1)}</div>
                     <div class="areaName">${area.Name}</div>
                     <div class="areaTypeTag">
@@ -172,6 +197,7 @@ function renderAreaList(areaData, page) {
         }
     });
     areaList.innerHTML = result;
+    bindHoverAreaListEvent();
 }
 
 function zeroPadding(num) {
