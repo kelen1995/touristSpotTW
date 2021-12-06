@@ -162,6 +162,11 @@ body {
     vertical-align: middle;
 }
 
+.areaList li:hover {
+    color: #808080;
+    cursor: pointer;
+}
+
 .areaList div {
     font-family: 'PingFangTC', sans-serif;  
     display: inline-block;

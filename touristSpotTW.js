@@ -82,7 +82,6 @@ function renderPagination(data, page) {
 function bindEvents() {
     bindSearchEvent();
     bindPageEvent();
-    bindHoverPictureEvent();
 }
 
 function bindSearchEvent() {
@@ -95,12 +94,6 @@ function bindSearchEvent() {
     areaInput.addEventListener('keyup', e => {
         console.log(e);
         if (e.key === 'Enter') getScenicSpotData(areaSelect.value, areaInput.value);
-    });
-}
-
-function bindHoverPictureEvent() {
-    areaList.addEventListener('mouseover', e => {
-        console.log(e);
     });
 }
 
