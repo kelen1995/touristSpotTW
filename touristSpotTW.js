@@ -6,6 +6,9 @@ const tdxApiKey = '7sI-Yl38SGBt02P2NbKx-rBd1yU';
 // DOMs
 const areaList = document.querySelector('.areaList');
 const pagination = document.querySelector('.pagination');
+const areaSelect = document.querySelector('.areaSelect');
+const areaInput = document.querySelector('.areaInput');
+const searchBtn = document.querySelector('.areaSearchBtn');
 
 // public data
 const SPOTS_PER_PAGE = 10;
@@ -13,18 +16,30 @@ let spotsData = [];
 
 function init() {
     // 透過 API 取得旅遊景點資料
-    getScenicSpotData(1);
-    bindPageEvent();
+    getScenicSpotData();
+    bindEvents();
 }
 
-function getScenicSpotData(page) {
+function getScenicSpotData(city='', filter='', page=1) {
+    // 判斷縣市篩選
+    let url = `${apiUrl}?$format=JSON&$top=35`; 
+    if (city) url = `${apiUrl}/${city}?$format=JSON&$top=35`;
+    if (filter) url += `&$filter=contains(Name,'${filter}')`;
+
     axios({
         method: 'get',
-        url: `${apiUrl}?$top=35&$format=JSON`,
+        url: url,
         headers: getAuthorizationHeader()
     })
     .then(res => {
         console.log(res.data);
+
+        // 沒有符合條件的資料
+        if (res.data.length === 0) {
+            alert('找不到相關景點');
+            return;
+        }
+
         spotsData = res.data;
         renderPagination(spotsData, page);
         renderAreaList(spotsData, page);
@@ -62,6 +77,31 @@ function renderPagination(data, page) {
     
     // 修改目前頁籤樣式
     document.querySelector(`[data-page="${page}"]`).classList.toggle('current');
+}
+
+function bindEvents() {
+    bindSearchEvent();
+    bindPageEvent();
+    bindHoverPictureEvent();
+}
+
+function bindSearchEvent() {
+    // 按下搜尋按鈕
+    searchBtn.addEventListener('click', e => {
+        // console.log(areaSelect.value,areaInput.value);
+        getScenicSpotData(areaSelect.value, areaInput.value)
+    });
+    // 關鍵字欄位按下 Enter
+    areaInput.addEventListener('keyup', e => {
+        console.log(e);
+        if (e.key === 'Enter') getScenicSpotData(areaSelect.value, areaInput.value);
+    });
+}
+
+function bindHoverPictureEvent() {
+    areaList.addEventListener('mouseover', e => {
+        console.log(e);
+    });
 }
 
 function bindPageEvent() {
@@ -118,10 +158,15 @@ function getAuthorizationHeader() {
 function renderAreaList(areaData, page) {
     let result = '';
     areaData.forEach((area,index) => {
+
+        // 擷取資料中的圖片網址
+        let picUrl = '';
+        if (area.Picture.PictureUrl1) picUrl = area.Picture.PictureUrl1;
+
         if ( index <= (page * SPOTS_PER_PAGE) -1 &&
              index > (page-1) * SPOTS_PER_PAGE -1)  {
                 result += /*HTML */`
-                <li>
+                <li data-pic="${picUrl}">
                     <div class="no">${zeroPadding(index+1)}</div>
                     <div class="areaName">${area.Name}</div>
                     <div class="areaTypeTag">

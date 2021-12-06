@@ -117,6 +117,11 @@ body {
 
     background-color: #1A1A1A;
     color: white;
+    cursor: pointer;
+}
+
+.areaSearchBtn:hover {
+    background-color: #333333;
 }
 
 .areaType {
