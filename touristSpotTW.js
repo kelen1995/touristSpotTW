@@ -17,13 +17,22 @@ let spotsData = [];
 function init() {
     // 透過 API 取得旅遊景點資料
     getScenicSpotData();
+    bindSearchEvent();
+    bindPageEvent();
 }
 
-function getScenicSpotData(city='', filter='', page=1) {
+function getScenicSpotData(page=1) {
+
+    // 取得相關資料
+    let city = areaSelect.value;
+    let name = areaInput.value;
+    // let type = document.querySelector('.areaType>.selected').dataset.category;
+    // console.log(city, name, type);
+
     // 判斷縣市篩選
     let url = `${apiUrl}?$format=JSON&$top=35`; 
-    if (city) url = `${apiUrl}/${city}?$format=JSON&$top=35`;
-    if (filter) url += `&$filter=contains(Name,'${filter}')`;
+    if (city) url = `${apiUrl}/${city}?$format=JSON`;
+    if (name) url += `&$filter=contains(Name,'${name}')`;
 
     axios({
         method: 'get',
@@ -42,15 +51,13 @@ function getScenicSpotData(city='', filter='', page=1) {
         spotsData = res.data;
         renderPagination(spotsData, page);
         renderAreaList(spotsData, page);
-        bindSearchEvent();
-        bindPageEvent();
     })
     .catch(err => {
         console.log(err);
     });
 }
 
-function renderPagination(data, page) {
+function renderPagination(data, page=1) {
     // 計算總共有幾頁
     let totalPages = 0, totalDataNum = data.length;
     totalPages = (totalDataNum % SPOTS_PER_PAGE === 0) ? totalDataNum/SPOTS_PER_PAGE : Math.floor(totalDataNum/SPOTS_PER_PAGE) + 1;
@@ -84,18 +91,17 @@ function bindSearchEvent() {
     // 按下搜尋按鈕
     searchBtn.addEventListener('click', e => {
         // console.log(areaSelect.value,areaInput.value);
-        getScenicSpotData(areaSelect.value, areaInput.value)
+        getScenicSpotData()
     });
     // 關鍵字欄位按下 Enter
     areaInput.addEventListener('keyup', e => {
-        console.log(e);
-        if (e.key === 'Enter') getScenicSpotData(areaSelect.value, areaInput.value);
+        // console.log(e);
+        if (e.key === 'Enter') getScenicSpotData();
     });
 }
 
 function bindHoverAreaListEvent() {
     let areaNodes = areaList.querySelectorAll('li');
-    console.log(areaNodes)
     areaNodes.forEach(area => {
         area.addEventListener('mouseenter', e => {
             let dom = e.target;
@@ -171,7 +177,7 @@ function getAuthorizationHeader() {
         }; 
 }
 
-function renderAreaList(areaData, page) {
+function renderAreaList(areaData, page=1) {
     let result = '';
     areaData.forEach((area,index) => {
 
@@ -202,7 +208,7 @@ function renderAreaList(areaData, page) {
         }
     });
     areaList.innerHTML = result;
-    bindHoverAreaListEvent();
+    // bindHoverAreaListEvent();
 }
 
 function zeroPadding(num) {
