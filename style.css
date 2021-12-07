@@ -265,6 +265,92 @@ body {
     color: white;
 }
 
+.spotPage {
+    font-size: 15px;
+    line-height: 25px;
+    display: block;
+    width: 100%;
+    height: calc(100vh - 50px);
+    position: fixed;
+    z-index:100;
+}
+
+.spotPage>.pageBox {
+    position: relative;
+    background-color: white;
+    width: 748px;
+    height: 100vh;
+    left: 0;
+    border: 2px solid green;
+
+    padding-left: 120px;
+    padding-right: 120px;
+    margin-left: 189px;
+}
+
+.spotPage a {
+    text-decoration: none;
+    color: black;
+}
+
+.spotPage .pageHeader {
+    height: 160px;  
+    display: flex;
+    align-items: center;
+}
+
+.spotPage .back {
+    flex:none;
+    font-size: 15px;
+    font-family: 'PingFangTC', sans-serif;
+}
+
+.spotPage .spotNo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 240px;
+    font-weight: 700;
+    font-style: italic;
+    color: #F9F9F9;
+
+    position: absolute;
+    left: 339px;
+    top: 110px;
+    opacity: 0.8;
+}
+
+.spotPage .spotName {
+    font-size: 40px;
+    line-height: 56px;
+    margin-bottom: 56px;
+
+}
+
+.spotPage .smbox {
+    padding-bottom: 30px;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.spotPage .smbox .smTitle {
+    color: #808080;
+    font-size: 12px;
+    line-height: 18px;
+    margin-top: 20px;
+    margin-bottom: 4px;
+}
+
+.spotPage .spotWebsite>div {
+    color: white;
+    background-color: black;
+    width: 154px;
+    height: 50px;
+
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-top: 56px;
+}
+
 .footer {
     /* height: 240px; */
     text-align: right;
