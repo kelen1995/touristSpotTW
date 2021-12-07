@@ -175,16 +175,21 @@ function renderAreaList(areaData, page) {
     let result = '';
     areaData.forEach((area,index) => {
 
-        // 擷取資料中的圖片網址
-        let picUrl = '';
-        if (area.Picture.PictureUrl1) picUrl = area.Picture.PictureUrl1;
-        else picUrl = 'no_pic.png';
+        // 擷取資料中的圖片網址 & 敘述
+        let picUrl = '', picAlt = '';
+        if (area.Picture.PictureUrl1) {
+            picUrl = area.Picture.PictureUrl1;
+            picAlt = area.Picture.PictureDescription1;
+        } else {
+            picUrl = 'no_pic.png'
+            picAlt = 'no picture';
+        };
 
         if ( index <= (page * SPOTS_PER_PAGE) -1 &&
              index > (page-1) * SPOTS_PER_PAGE -1)  {
                 result += /*HTML */`
                 <li>
-                    <img class="areaPic" src="${picUrl}">
+                    <img class="areaPic" src="${picUrl}" alt="${picAlt}">
                     <div class="no">${zeroPadding(index+1)}</div>
                     <div class="areaName">${area.Name}</div>
                     <div class="areaTypeTag">
