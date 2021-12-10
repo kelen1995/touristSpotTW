@@ -268,7 +268,7 @@ body {
 .spotPage {
     font-size: 15px;
     line-height: 25px;
-    display: block;
+    display: none;
     width: 100%;
     height: calc(100vh - 50px);
     position: fixed;
@@ -278,14 +278,13 @@ body {
 .spotPage>.pageBox {
     position: relative;
     background-color: white;
-    width: 748px;
+    width: 52vw;
     height: 100vh;
-    left: 0;
-    border: 2px solid green;
+    /* left: 0; */
 
     padding-left: 120px;
     padding-right: 120px;
-    margin-left: 189px;
+    margin-left: 13vw;
 }
 
 .spotPage a {
@@ -349,6 +348,29 @@ body {
     padding-top: 12px;
     padding-bottom: 12px;
     margin-top: 56px;
+}
+
+.menuBox {
+    width: 13vw;
+    height: 100vh;
+    position: fixed;
+    background-color: white;
+    border-right: 1px solid #D9D9D9;
+}
+
+.imgBox {
+    width: 35vw;
+    height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 0;
+    background-color: white;
+    overflow: hidden;
+}
+
+.imgBox img {
+    height: 789px;
+    margin-left: -180px;
 }
 
 .footer {
