@@ -11,10 +11,14 @@ body {
     height: 100%;
 }
 
+.lBox {
+    display: flex;
+}
+
 .cover {
-    width: 13%;
+    flex: none;
+    width: 189px;
     height: 100%;
-    position: fixed;
     z-index: -1;
 }
 
@@ -23,16 +27,15 @@ body {
 }
 
 .box {
+    flex: auto;
     width: 87%;
     height: auto;
-    position: absolute;
     right: 0;
     background: white;
 
     padding-left: 120px;
     padding-right: 100px;
-    /* margin-left: 120px;
-    margin-right: 100px; */
+    /* margin-left: 189px; */
 }
 
 .header {
