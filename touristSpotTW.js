@@ -9,6 +9,8 @@ const pagination = document.querySelector('.pagination');
 const areaSelect = document.querySelector('.areaSelect');
 const areaInput = document.querySelector('.areaInput');
 const searchBtn = document.querySelector('.areaSearchBtn');
+const spotPage = document.querySelector('.spotPage');
+const spotPageContent = document.querySelector('.spotPage .pageContent');
 
 // public data
 const SPOTS_PER_PAGE = 10;
@@ -18,6 +20,7 @@ function init() {
     // 透過 API 取得旅遊景點資料
     getScenicSpotData();
     bindSearchEvent();
+    bindPopupPageEvent();
     bindPageEvent();
 }
 
@@ -126,6 +129,65 @@ function bindHoverAreaListEvent() {
     });
 }
 
+function bindPopupPageEvent() {
+    // 進入景點頁面
+    areaList.addEventListener('click', e => {
+
+        let tar = e.target;
+        if (tar.nodeName.toLowerCase() === 'li') {
+            // show page
+            spotPage.style.display = "block";
+
+            // render page
+            let index = Number(tar.dataset.index);
+            let spotData = spotsData[tar.dataset.index];
+            let str = `
+                <div class="spotNo">${zeroPadding(index+1)}</div>
+                <div class="spotName">${spotData.Name}</div>
+                <div class="spotDescription smbox">${spotData.DescriptionDetail}</div>
+                <div class="spotOpenTime smbox">
+                    <h2 class="smTitle">開放時間</h2>
+                    <p>${spotData.OpenTime}</p>
+                </div>
+                <div class="spotTel smbox">
+                    <h2 class="smTitle">景點服務電話</h2>
+                    <p>${spotData.Phone}</p>
+                </div>
+            `;
+
+            if (spotData.WebsiteUrl) {
+                str += `
+                <a href="${spotData.WebsiteUrl}" target="_blank" class="spotWebsite">
+                    <div>
+                        景點官方網站
+                    </div>
+                </a>
+                `
+            }
+
+            if (spotData.Picture.PictureUrl1) {
+                str += `
+                <div class="imgBox">
+                    <img src="${spotData.Picture.PictureUrl1}" alt="${spotData.Picture.PictureDescription1}">
+                </div>
+                `;
+            } else {
+                str +=`
+                <div class="imgBox"></div>
+                `;
+            }
+
+            spotPageContent.innerHTML = str;
+        }
+    })
+
+
+    // 返回主頁面
+    document.querySelector('.spotPage .back').addEventListener('click', e => {
+        spotPage.style.display = 'none';
+    })
+}
+
 function bindPageEvent() {
     // 綁定事件
     pagination.addEventListener('click', e => {
@@ -194,7 +256,7 @@ function renderAreaList(areaData, page=1) {
         if ( index <= (page * SPOTS_PER_PAGE) -1 &&
              index > (page-1) * SPOTS_PER_PAGE -1)  {
                 result += /*HTML */`
-                <li>
+                <li data-index=${index}>
                     <img class="areaPic" src="${picUrl}" alt="${picAlt}">
                     <div class="no">${zeroPadding(index+1)}</div>
                     <div class="areaName">${area.Name}</div>
@@ -208,7 +270,7 @@ function renderAreaList(areaData, page=1) {
         }
     });
     areaList.innerHTML = result;
-    // bindHoverAreaListEvent();
+    bindHoverAreaListEvent();
 }
 
 function zeroPadding(num) {
