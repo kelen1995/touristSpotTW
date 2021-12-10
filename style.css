@@ -195,7 +195,7 @@ body {
 
 .areaList .areaPic {
     display:none;
-    width: 400px;
+    max-width: 400px;
     position: fixed;
     border: 2px solid #D9D9D9;
 }
@@ -369,8 +369,8 @@ body {
 }
 
 .imgBox img {
-    height: 789px;
-    margin-left: -180px;
+    max-height: 789px;
+    /* margin-left: -180px; */
 }
 
 .footer {
