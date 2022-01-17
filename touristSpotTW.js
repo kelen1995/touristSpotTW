@@ -143,7 +143,7 @@ function bindPopupPageEvent() {
             let spotData = spotsData[tar.dataset.index];
             let str = `
                 <div class="spotNo">${zeroPadding(index+1)}</div>
-                <div class="spotName">${spotData.Name}</div>
+                <div class="spotName">${spotData.ScenicSpotName}</div>
                 <div class="spotDescription smbox">${spotData.DescriptionDetail}</div>
                 <div class="spotOpenTime smbox">
                     <h2 class="smTitle">開放時間</h2>
@@ -259,7 +259,7 @@ function renderAreaList(areaData, page=1) {
                 <li data-index=${index}>
                     <img class="areaPic" src="${picUrl}" alt="${picAlt}">
                     <div class="no">${zeroPadding(index+1)}</div>
-                    <div class="areaName">${area.Name}</div>
+                    <div class="areaName">${area.ScenicSpotName}</div>
                     <div class="areaTypeTag">
                         ${createType(area.Class1)}
                         ${createType(area.Class2)}
